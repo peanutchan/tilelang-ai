@@ -1032,8 +1032,8 @@ void CodeGenTileLangAscend::VisitExpr_(const BroadcastNode *op,
 
   // Match CUDA codegen's stateful RNG vectorization: the loop vectorizer
   // leaves an opaque scalar RNG call under Broadcast, and target codegen
-  // replaces the vector with one backend runtime call. Ascend's default 64-bit
-  // vector width makes the FP32 case a float2.
+  // replaces the vector with one backend runtime call. Ascend's default 128-bit
+  // vector width makes the FP32 case a float4 (lanes==2 remains float2).
   const CallNode *rng_call = op->value.as<CallNode>();
   if (rng_call != nullptr) {
     const CallNode *call = rng_call;
